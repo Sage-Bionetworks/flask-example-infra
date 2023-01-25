@@ -7,16 +7,16 @@ on:
   push:
 
 env:
-  IMAGE_PATH_AND_TAG: ghcr.io/application-repository:release-1.0
+  IMAGE_PATH_AND_TAG: ghcr.io/sage-bionetworks/flask-example:main
   AWS_DEFAULT_REGION: 'us-east-1' 
-  PORT: 3838
+  PORT: 5000
   COST_CENTER: "NO PROGRAM / 000000"
-  STACK_NAME_PREFIX: application-repository
+  STACK_NAME_PREFIX: flask-example
   CONTAINER_ENV: example
-  HOST_NAME: my-application.synapse.org
-  HOSTED_ZONE_NAME: synapse.org
-  HOSTED_ZONE_ID: ZYZU99KV4AABC
- 
+  HOST_NAME: flask-example.dev.sagebase.org
+  HOSTED_ZONE_NAME: sagebase.org
+  HOSTED_ZONE_ID: Z28CDXGXBHW4TT
+  AWS_DEPLOYMENT_ROLE: arn:aws:iam::449435941126:role/meta-cdk-role
 
 jobs:
   cdk-deploy:
@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          role-to-assume: arn:aws:iam::<account-number>:role/<role-name>
+          role-to-assume: ${{ env.AWS_DEPLOYMENT_ROLE }}
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1200
           
