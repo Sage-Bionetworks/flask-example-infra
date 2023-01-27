@@ -123,7 +123,7 @@ class DockerFargateStack(Stack):
             public_load_balancer=True,  # Default is False
             # TLS:
             protocol=elbv2.ApplicationProtocol.HTTPS,
-            ssl_policy=elbv2.SslPolicy.TLS13_EXT1, # TLS1.2 and 1.3 and no SHA ciphers.
+            ssl_policy=elbv2.SslPolicy.TLS12, # TLS1.2 only and no SHA ciphers.
             domain_name=get_host_name(), # The domain name for the service, e.g. “api.example.com.”
             domain_zone=zone) #  The Route53 hosted zone for the domain, e.g. “example.com.”
             
